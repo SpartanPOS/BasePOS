@@ -1,0 +1,7 @@
+{
+    "spartanPOS": {
+        "viewExports": [
+            "dashboard"
+       ]
+    }
+}
