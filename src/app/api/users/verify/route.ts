@@ -6,15 +6,12 @@ import CryptoInstance from '@/lib/pinAuth'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
 
-
 export async function POST(request: NextRequest) {
   try{
     const { sessionId, clientkey, clientchallenge } = await request.json()
     const server = await sessionStore.getSession(sessionId)
 
-
     if (!sessionId) return null;
-
 
     if (!server) {
       console.log("is not server")
@@ -23,12 +20,6 @@ export async function POST(request: NextRequest) {
         { status: 401 }
       )
     } 
-
-
-    
-
-
-    
 
     let M2: Buffer | undefined;
     try {
@@ -45,19 +36,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-
-
-
     if (typeof M2 === 'undefined' || M2 === null) {
       return NextResponse.json(
         { error: 'Invalid session' },
         { status: 401 }
       )
     }
-
-
-
-
 
     console.log("valid session")
 
@@ -73,7 +57,6 @@ export async function POST(request: NextRequest) {
             { status: 500 }
             )
         }
-
         
         // Create JWT token
         const token = await new SignJWT({})
@@ -83,7 +66,6 @@ export async function POST(request: NextRequest) {
         .sign(new TextEncoder().encode(JWT_SECRET));
 
         console.log("yeah! heres a token")
-
 
         // Set JWT in HTTP-only cookie
         const cookieStore = await cookies()

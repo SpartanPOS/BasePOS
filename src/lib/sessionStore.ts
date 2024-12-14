@@ -13,9 +13,6 @@ class SessionStore {
   private client = Client.createClient()
   private conn = this.client.connect()
 
-
-
-
   async createSession(server: InstanceType<typeof SrpServer>, user: { username: string, salt: string, verifier: string }): Promise<string> {
     // Clean up expired sessions
     this.cleanExpiredSessions();

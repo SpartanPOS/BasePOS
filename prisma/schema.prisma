@@ -13,16 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//employees will be identified by a plain-text stored pin
+//as long as the admin accounts are secure and the devices are secure
+//shouldnt be too much of a security risk
 model Employee {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  username String
-  salt     String
-  verifier String
+  pin String @unique
   Session  Session[]
 }
 
+//Keep track of sessions and limit the time on them based on their type
+//devices can keep a session going longer than a few months
+//employees can be timed out within seconds of no interaction 
 model Session {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  type      String
   sessionId String   @unique
   user      Employee @relation(fields: [id], references: [id])
   createdAt DateTime

@@ -2,10 +2,7 @@ import {SRP, SrpServer} from 'fast-srp-hap';
 import { NextApiRequest } from 'next';
 import { PrismaClient } from '@prisma/client';
 
-
-
 const prisma = new PrismaClient();
-
 
 async function getUserVerifier(username: string):Promise<[string, string]>{
 
@@ -28,7 +25,7 @@ export default async function testSrp(NextApiRequest: NextApiRequest) {
   const secret = await SRP.genKey(32);
 
   const server = new SrpServer(SRP.params[1024], user, secret); // For Apple SRP use params.hap
-
+  return server;
 
   // ...
 };

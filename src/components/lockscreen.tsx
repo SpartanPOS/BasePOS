@@ -6,7 +6,6 @@ import type { FormEvent } from "react";
 import Error from "next/error";
 import { NextResponse } from "next/server";
 
-
 /** 
  * lockscreen for when there is no session available
  * @returns reactdom
@@ -17,14 +16,13 @@ const Lockscreen: React.FC<{}>  =  ()  =>  {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [entry, setEntry] = useState("")
-
   
     function handleSubmit(e: FormEvent) {
       e.preventDefault()
       setError('')
   
       try {
-        let initResponse = fetch('/api/employee/login', {
+        const initResponse = fetch('/api/employee/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ "pin": entry  })
@@ -37,14 +35,10 @@ const Lockscreen: React.FC<{}>  =  ()  =>  {
           throw "invalid response from server";
         }
 
-
-
       } catch (err) {
         setError((err as string))
       }
       }  
-
-
 
     const keyEnter = (val: "delete" | number) => {
 
@@ -74,8 +68,6 @@ const Lockscreen: React.FC<{}>  =  ()  =>  {
                         <div id="errField"></div>
                         <div id="chars">{entry}</div>
                         <div id="pin-keys">
-
-
 
                             <div className="pin-key" onClick={() => {keyEnter(1)}}>1</div>
                             <div className="pin-key" onClick={() => {keyEnter(2)}}>2</div>

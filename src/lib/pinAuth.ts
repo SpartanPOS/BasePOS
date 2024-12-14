@@ -16,15 +16,11 @@ if (process.env.DEBUG == "true") {
 
 await client.connect()
 
-
-
 class CryptoInstance {
     
     private pubKey: crypto.KeyObject | undefined
     public sessionId: string
     public clientKey: string | undefined
-
-
 
     constructor(restore?: {sessionId: string, pubKey: string, clientKey: string}) {
         
@@ -39,10 +35,7 @@ class CryptoInstance {
         this.getKeys()
       }
 
-
     }
-
-    
 
     async getKeys(): Promise<void> {
         const generated = generateKeyPairSync('rsa', {
@@ -68,7 +61,6 @@ class CryptoInstance {
             console.error(err)
           }
 
-
         this.pubKey = crypto.createPublicKey(generated.publicKey)
     }
 
@@ -92,25 +84,17 @@ class CryptoInstance {
       const verifier = crypto.createVerify('RSA-SHA256'); // Choose your algorithm
       verifier.update(challenge);
     
-    
       try {
         const publicKey = this.pubKey
     
-    
         return verifier.verify(publicKey, Buffer.from(this.clientKey, 'base64'));
-    
     
       } catch (error) {
           console.error("Error verifying signature:", error);
           return false
       }
     
-    
     }
-    
-    
-
-
 
 }
 

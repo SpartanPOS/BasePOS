@@ -3,9 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { generateSaltAndVerifier } from '@/lib/srp'
 
-
 // Store SRP sessions in memory (consider using Redis for production)
-
 
 export async function POST(request: NextRequest) {
 
@@ -30,7 +28,6 @@ export async function POST(request: NextRequest) {
         );
     }
 
-
     await prisma.employee.create({
       data: {
         username,
@@ -41,7 +38,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true })
    } catch(error)  {
-
 
     if ( (error as any).code === 'P2002') {
       return NextResponse.json(

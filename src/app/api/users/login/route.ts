@@ -20,9 +20,6 @@ export async function POST(request: NextRequest) {
       )
     }
     const session = new CryptoInstance()
-    
-    
-
 
     const sessionId = await sessionStore.createSession(server, user)
 

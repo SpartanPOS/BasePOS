@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
-
-
+import React from 'react';
 
 /**
  * gets dynamic view from the server
@@ -31,5 +30,3 @@ export default function Page({viewName}: {viewName: string}) {
     </div>
   );
 }
-
-
