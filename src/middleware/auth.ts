@@ -1,19 +1,18 @@
-import type { NextRequest } from "next/server"
-import { NextResponse } from "next/server"
-import { notFound } from "next/navigation"
+import type {NextRequest} from 'next/server';
+import {NextResponse} from 'next/server';
+import {notFound} from 'next/navigation';
 
-import { auth0 } from "../lib/auth0"
+import {auth0} from '../lib/auth0';
 
 export async function middleware(request: NextRequest) {
-  const res = await auth0.middleware(request)
-  const session = await auth0.getSession()
+  const res = await auth0.middleware(request);
+  const session = await auth0.getSession();
 
   if (!session) {
-      notFound()
+    notFound();
   }
 
-  return res
-
+  return res;
 }
 
 export const config = {
@@ -24,6 +23,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      */
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
   ],
-}
+};

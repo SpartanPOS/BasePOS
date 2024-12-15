@@ -1,14 +1,18 @@
 import {SRP, SrpServer} from 'fast-srp-hap';
-import { NextApiRequest } from 'next';
-import { PrismaClient } from '@prisma/client';
+import {NextApiRequest} from 'next';
+import {PrismaClient} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function getUserVerifier(username: string):Promise<[string, string]>{
+/**
+ * Retrieves the salt and verifier for a given username from the database.
+ * @param {string} username - id of the user logging in
+ * @return {Promise<[string, string]>}
+ */
+async function getUserVerifier(username: string):Promise<[string, string]> {
+  const user = await prisma.employee.findFirst({where: {username: username}});
 
-  const user = await prisma.employee.findFirst({where: {username: username}})
-
-  return [user?.salt || "", user?.verifier || ""]
+  return [user?.salt || '', user?.verifier || ''];
 }
 
 export default async function testSrp(NextApiRequest: NextApiRequest) {

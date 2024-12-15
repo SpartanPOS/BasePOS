@@ -3,26 +3,24 @@ import React from 'react';
 
 /**
  * gets dynamic view from the server
- * @param params 
- * @returns 
+ * @param params
+ * @returns
  */
 export function getView({viewName}: {viewName: string}) {
-    return  dynamic(() => import(`../../runtime/packages/${viewName}/index`), {
-        ssr: true 
-      });
-    
+  return dynamic(() => import(`../../runtime/packages/${viewName}/index`), {
+    ssr: true,
+  });
 }
 
 /**
  * the dynamic viewport for modules to load
- * @param param0 
- * @returns 
+ * @param param0
+ * @returns
  */
 export default function Page({viewName}: {viewName: string}) {
+  const effectiveViewName = viewName;
 
-  const effectiveViewName = viewName
-
-  const View =  getView({viewName: effectiveViewName})
+  const View = getView({viewName: effectiveViewName});
 
   return (
     <div>

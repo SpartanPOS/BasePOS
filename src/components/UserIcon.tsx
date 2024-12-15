@@ -1,12 +1,12 @@
 'use client';
 
-import { useUser } from '@auth0/nextjs-auth0';
+import {useUser} from '@auth0/nextjs-auth0';
 
 export default function ProfileClient() {
-  const { user, error, isLoading } = useUser();
+  const {user, error, isLoading} = useUser();
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{(error as Error).message ?? "unknown error"}</div>;
+  if (error) return <div>{(error as Error).message ?? 'unknown error'}</div>;
 
   return (
     user && (

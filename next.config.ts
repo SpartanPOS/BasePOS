@@ -1,4 +1,4 @@
-const { NextFederationPlugin } = require('@module-federation/nextjs-mf');
+const {NextFederationPlugin} = require('@module-federation/nextjs-mf');
 
 // const webpack = (config: Configuration, options: WebpackOptionsNormalized ): Configuration => {
 //   const { isServer } = options;
@@ -39,6 +39,6 @@ const ModuleManage = {
 
   //   return config;
   // },
-}
+};
 
 export default ModuleManage;

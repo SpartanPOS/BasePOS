@@ -11,9 +11,9 @@ export default function ProtectedRoute({
   }>) {
     return(
         <div>
-            {auth0.isAuthenticated && (
+            {auth0 && (
 
-              
+              children
             )}
         </div>
     )
