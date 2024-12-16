@@ -15,7 +15,7 @@ export default [
   {
     rules: {
       'no-multiple-empty-lines': ['error', {'max': 1, 'maxEOF': 0}],
-      'no-unused-vars': 'off',
+      'no-unused-vars': 0,
       'require-jsdoc': 'warn',
       'max-len': ['error', {'code': 120}],
     },

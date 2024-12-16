@@ -13,7 +13,7 @@
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.0.0-beta.0",
     "@module-federation/nextjs-mf": "^8.6.4",
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.0.1",
     "fast-srp-hap": "^2.0.4",
     "next": "^15.0.3",
     "react": "18.2.0",

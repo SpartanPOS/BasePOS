@@ -5,6 +5,9 @@ import {generateSaltAndVerifier} from '@/lib/srp';
 
 // Store SRP sessions in memory (consider using Redis for production)
 
+/** to be removed
+ * @param {NextRequest} request
+ */
 export async function POST(request: NextRequest) {
   // [TODO]: move createUser to admin api
   try {
@@ -37,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({success: true});
   } catch (error) {
-    if ( (error as Error).code === 'P2002') {
+    if ( (error as Error).cause === 'P2002') {
       return NextResponse.json(
           {error: 'Username already exists'},
           {status: 400},

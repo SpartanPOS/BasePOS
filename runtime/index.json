@@ -5,7 +5,11 @@
     ],
     "viewModules": [
         "main"
+    ],
+    "commandModules": [
+
     ]
+    
 
 
 }

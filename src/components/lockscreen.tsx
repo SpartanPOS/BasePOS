@@ -1,40 +1,53 @@
 'use client';
 
 import {useState} from 'react';
-import {SRP, SrpClient} from 'fast-srp-hap';
 import type {FormEvent} from 'react';
-import Error from 'next/error';
-import {NextResponse} from 'next/server';
+import * as React from 'react';
+import AuthContext from './AuthContext';
 
 /**
  * lockscreen for when there is no session available
- * @return reactdom
+ * @return {React.FC}
  */
-const Lockscreen: React.FC<{}> = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Lockscreen: React.FC = () => {
   const [error, setError] = useState('');
   const [entry, setEntry] = useState('');
 
+  const {login} = React.useContext(AuthContext);
+
+  /** Handle the submit button
+   * @param {FormEvent} e
+   */
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError('');
 
     try {
-      const initResponse = fetch('/api/employee/login', {
+      fetch('/api/employee/login', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({'pin': entry}),
+        body: JSON.stringify({'pin': entry.toString()}),
+      }).then((response) => {
+        console.log('response from login', response.json());
+        if (!response.ok) {
+          console.error('response not okay');
+          setError('response not okay');
+          return;
+        }
+      },
+      );
+
+      fetch('/api/session/refresh', {
+        method: 'POST',
+        credentials: 'include',
+      }).then((stat) => {
+        console.log(stat.json());
+        if (stat.status == 200) {
+          login();
+        }
       });
-
-      console.log('test');
-
-      if (!initResponse) {
-        console.error('response not okay');
-        throw 'invalid response from server';
-      }
     } catch (err) {
-      setError((err as string));
+      console.error(err);
     }
   }
 
@@ -47,10 +60,6 @@ const Lockscreen: React.FC<{}> = () => {
     setEntry( entry + val);
   };
 
-  const keySubmit = () => {
-    console.log('test');
-  };
-
   const toggleToolbar = () => {
     console.log('test');
   };
@@ -61,7 +70,7 @@ const Lockscreen: React.FC<{}> = () => {
         <h1 id="title">Hello World</h1>
         <div id="store-logo"></div>
         <form onSubmit={handleSubmit} id="formDiv">
-          <div id="errField"></div>
+          <div id="errField">{error}</div>
           <div id="chars">{entry}</div>
           <div id="pin-keys">
 
