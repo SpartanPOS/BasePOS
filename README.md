@@ -1,3 +1,6 @@
+# ARCHIVE NOTICE
+## I am archiving this repo. I have decided to start with a ground up approach, and build the modular features after the base is built
+
 This is a base point of sale and for now has zero features
 I am in the process of implementing ways to have a modular runtime
 
